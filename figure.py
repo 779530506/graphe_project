@@ -9,7 +9,6 @@ from ville import data
 from sqlalchemy import create_engine # database connection
 def networkGraph(source,destination):
   
-
     edges = []
     for e in data:
         for v in data[e]:
@@ -61,9 +60,9 @@ def networkGraph(source,destination):
             line=dict(color='black', width=1)))
 
     # layout
-    layout = dict(plot_bgcolor='white',
+    layout = dict(plot_bgcolor='#ddffee',
                   paper_bgcolor='white',
-                  margin=dict(t=10, b=10, l=10, r=10, pad=0),
+                  #margin=dict(t=10, b=10, l=10, r=10, pad=0),
                   xaxis=dict(linecolor='black',
                              showgrid=False,
                              showticklabels=False,
@@ -76,7 +75,13 @@ def networkGraph(source,destination):
     # figure
     fig = go.Figure(data=[edge_trace, node_trace], layout=layout)
 
-    return fig
+    #pageranks = nx.pagerank(G) 
+    villeConnecte = sorted(G.degree, key=lambda x: x[1], reverse=True)
+    print(villeConnecte[0][1])
+    message = "la ville la plus connectée est  {} avec {}  liaisons.".format(villeConnecte[0][0],villeConnecte[0][1])
+    message += "  Et la ville la moin connectée est  {} avec {} liaisons".format(villeConnecte[-1][0],villeConnecte[-1][1])
+
+    return fig , message
 
 def calculdistance(source,destination):
     if not source:
@@ -85,6 +90,7 @@ def calculdistance(source,destination):
     G = getGraphe()
 
     plt = nx.shortest_path(G, source=source, target=destination, weight="weight")
+    distanceMin = nx.shortest_path_length(G, source=source, target=destination, weight="weight")
     edges=[]
     G = nx.Graph()
     for i,ville in enumerate(plt):
@@ -138,22 +144,27 @@ def calculdistance(source,destination):
             line=dict(color='black', width=1)))
 
     # layout
-    layout = dict(plot_bgcolor='white',
+    layout = dict(plot_bgcolor='#ddffee',
                   paper_bgcolor='white',
-                  margin=dict(t=10, b=10, l=10, r=10, pad=0),
-                  xaxis=dict(linecolor='black',
+                  #margin=dict(t=10, b=10, l=10, r=10, pad=0),
+                  xaxis=dict(
+                    # linecolor='black',
                              showgrid=False,
                              showticklabels=False,
                              mirror=True),
-                  yaxis=dict(linecolor='black',
+                  yaxis=dict(
+                    # linecolor='red',
                              showgrid=False,
                              showticklabels=False,
-                             mirror=True))
+                            #  mirror=True
+                             )
+                 )
 
     # figure
     fig = go.Figure(data=[edge_trace, node_trace], layout=layout)
+    message = "la distance minimum  entre {} et {} est de {} ".format(source,destination,distanceMin)
 
-    return fig
+    return fig,message
     
 def getGraphe():
     edges = []
@@ -166,3 +177,4 @@ def getGraphe():
     pos = nx.spring_layout(G)
 
     return G
+

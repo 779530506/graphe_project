@@ -4,7 +4,10 @@
 
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
-
+import pandas as pd
+def getData():
+    d = pd.read_json("/home/abdoulayesarr/Documents/MasterBigdata/analyse_reseaux_sociaux/avocado_analytics/villes.json")
+    print(d)
 # def initDB():
 #     server = flask.Flask(__name__)
 
