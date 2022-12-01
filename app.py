@@ -1,15 +1,7 @@
 from dash import Dash, html, dcc
 import dash
 
-import os
-import flask
-import dash
-
-
-
 app = Dash(__name__, use_pages=True)
-
-
 
 app.layout = html.Div([
 	html.H1('Multi-page app with Dash Pages'),
@@ -18,7 +10,7 @@ app.layout = html.Div([
         [
             html.Div(
                 dcc.Link(
-                    f"{page['name']}" , href=page["relative_path"]
+                    f"{page['name']} - {page['path']}", href=page["relative_path"]
                 )
             )
             for page in dash.page_registry.values()

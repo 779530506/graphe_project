@@ -29,15 +29,17 @@ colors = {
 layout = html.Div([
     html.Div(children=[
         html.Label('Sélectionner la ville de départ'),
-        dcc.Dropdown(villes,id="input_value1"),
+        dcc.Dropdown(villes,"Ziguinchor",id="input_value1"),
 
         html.Br(),
         html.Label('Sélectionner la ville d\'arrivée '),
-        dcc.Dropdown(villes,id="input_value2"),
+        dcc.Dropdown(villes,'dakar',id="input_value2"),
         html.Br(),
         html.Button(id='submit-button-state', n_clicks=0, children='Submit'),
         html.Br(),
-        html.Label(id='output_value2'),
+        dcc.Graph(
+            id='output_value2'
+        ),
 
         # html.Br(),
         # html.Label('Radio Items'),
@@ -79,7 +81,7 @@ layout = html.Div([
 
 @callback(
     Output('output_value1', 'figure'),
-    Output('output_value2', 'children'),
+    Output('output_value2', 'figure'),
     # Input('input_value1', 'value'),
     # Input('input_value2', 'value'),
     Input('submit-button-state', 'n_clicks'),
