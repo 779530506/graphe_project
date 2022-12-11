@@ -12,8 +12,8 @@ import pandas as pd
 dash.register_page(
     __name__,
     path='/analytics-dashboard',
-    title='Our Analytics Dashboard',
-    name='Our Analytics Dashboard'
+    title='Chemin le plus court entre deux ville ',
+    name='Chemin le plus court'
 )
 villes = []
 for ville in data:
@@ -32,18 +32,21 @@ colors = {
 
 layout = html.Div([
     html.Div(children=[
-        html.Label('Sélectionner la ville de départ'),
-        dcc.Dropdown(villes,"ziginchor",id="input_value1"),
+        html.Label('Sélectionner la ville de départ',style={'color': 'green', 'font-size': '1.2rem'}),
+        dcc.Dropdown(villes,"ziginchor",id="input_value1",style={'color': 'green', 'font-size': '1.2rem'}),
 
         html.Br(),
-        html.Label('Sélectionner la ville d\'arrivée '),
-        dcc.Dropdown(villes,'dakar',id="input_value2"),
+        html.Label('Sélectionner la ville d\'arrivée ',style={'color': 'blue', 'font-size': '1.2rem'}),
+        dcc.Dropdown(villes,'dakar',id="input_value2",style={'color': 'blue', 'font-size': '1.2rem'}),
         html.Br(),
-        html.Button(id='submit-button-state', n_clicks=0, children='Submit'),
+        html.Button(id='submit-button-state', n_clicks=0, children='Submit',
+        style={'margin': 1,'background':"blue",'height':"2rem",'width':"100%","color":"white",
+        "font-size":"1.5rem", "font-weight": "bold"}),
         html.Br(),
-        html.Div(id="output_value3"),
         html.Br(),
-        html.Div(id="output_value4"),
+        html.Div(id="output_value3",style={'padding': 4,'color':"red", "font-size":"1.5rem", "font-weight": "bold"}),
+        html.Br(),
+        html.Div(id="output_value4",style={'padding': 4,'color':"blue", "font-size":"1.5rem", "font-weight": "bold"}),
         html.Br(),
         dcc.Graph(
             id='output_value2'
@@ -53,7 +56,7 @@ layout = html.Div([
         # html.Label('Radio Items'),
         # dcc.RadioItems(['New York City', 'Montréal', 'San Francisco'], 'Montréal'),
         
-    ], style={'padding': 1, 'flex': 1}),
+    ], style={'padding-left': 20,'padding-top': 2,'padding-right': 70,'padding-bottom': 1, 'flex': 1}),
      
 
 
